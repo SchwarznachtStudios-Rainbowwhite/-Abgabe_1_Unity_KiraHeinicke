@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Word1_Test
+  - Word2_Hallo
+  - Word3_Bye
+  - RandomLetter
   layers:
   - Default
   - TransparentFX
