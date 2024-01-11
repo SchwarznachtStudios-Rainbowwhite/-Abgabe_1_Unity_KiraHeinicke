@@ -4,10 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Word1_Test
-  - Word2_Hallo
   - Word3_Bye
   - RandomLetter
+  - Word1_Game
+  - Word2_Thief
   layers:
   - Default
   - TransparentFX

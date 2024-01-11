@@ -18,13 +18,15 @@ public class PuzzleManager : MonoBehaviour
     // Random Letters
     public TMP_Text[] RandomizableLetters;
     public string[] Alphabet = new string[26] { "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z" };
-     
-    //
+
+    // CheckWord Bools
+    public bool[] A_Word1_Bool = new bool[3];
+    private bool[] A_Word2_Bool;
+    private bool[] A_Word3_Bool;
 
 
 
-
-// START
+    // START
     void Start()
     {
         RandomizeLetters();
@@ -53,8 +55,8 @@ public class PuzzleManager : MonoBehaviour
 
     public void CheckWords()
     {
-        Debug.Log("click");
 
+        
         // Check which letter is in the text(or button?) that has been clicked on
         // if the letter is fitting one of the three words, color button green, if not red
         // if one time red -> reset all 
@@ -70,5 +72,8 @@ public class PuzzleManager : MonoBehaviour
         }*/
 
     }
+
+    
+
 
 }
