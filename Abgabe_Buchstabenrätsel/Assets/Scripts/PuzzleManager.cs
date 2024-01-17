@@ -29,7 +29,7 @@ public class PuzzleManager : MonoBehaviour
     public GameObject[] A_Word3_Bye = new GameObject[3];
 
     // Random Letters
-    [HideInInspector] public TMP_Text[] A_RandomizableLetters;
+    public TMP_Text[] A_RandomizableLetters;
     [HideInInspector] public string[] A_Alphabet = new string[26] { "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z" };
 
     // CheckWord Bools
@@ -42,7 +42,7 @@ public class PuzzleManager : MonoBehaviour
     // UI Objects
     private GameObject _EndScreen;
     private TMP_Text Txt_WordCounter;
-    [HideInInspector] public TMP_Text Txt_TimeFinal;
+    public TMP_Text Txt_TimeFinal;
 
     // START
     void Start()
@@ -200,7 +200,7 @@ public class PuzzleManager : MonoBehaviour
     {
         // EndScreen + Final Counter Find&Disable
         _EndScreen = GameObject.Find("EndScreen");
-        Txt_TimeFinal = GameObject.Find("Txt_TimeFinal").GetComponent<TMP_Text>();
+        Txt_TimeFinal = GameObject.Find("TimeFinal").GetComponent<TMP_Text>();
         _EndScreen.SetActive(false);
 
         // Find Word Counter 
