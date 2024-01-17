@@ -11,6 +11,7 @@ public class PuzzleManager : MonoBehaviour
 
     // Scripts
     public Letter S_Letter;
+    public TimeCounter S_TimeCounter;
     [Space]
 
     // int
@@ -43,8 +44,9 @@ public class PuzzleManager : MonoBehaviour
     // Objects
     private GameObject _EndScreen;
     private TMP_Text Txt_WordCounter;
+    [HideInInspector] public TMP_Text TimeFinal;
 
-// START
+    // START
     void Start()
     {
         RandomizeLetters();
@@ -91,6 +93,11 @@ public class PuzzleManager : MonoBehaviour
 
             // Play EndGameSound
             FinishGameSound.Play();
+
+            S_TimeCounter.TimeCounterStop();
+
+
+
         }      
 
         // Display Time Needed
@@ -118,10 +125,8 @@ public class PuzzleManager : MonoBehaviour
             FailSound.Play();
 
             // Reset Colors to White
-            for (int i = 0; i < A_Word1_Game.Length; i++)
-            {
-                A_Word1_Game[i].GetComponent<Image>().color = Color.white;
-            }
+            Invoke("ColorReset_Word1", 1);
+            //ColorReset_Word1();
 
             // Reset bools that said letter correct
             for (int i = 0; i < A_Word1_Bool.Length; i++)
@@ -137,10 +142,9 @@ public class PuzzleManager : MonoBehaviour
             FailSound.Play();
 
             // Reset Colors to White
-            for (int i = 1; i < A_Word2_Thief.Length; i++)
-            {
-                A_Word2_Thief[i].GetComponent<Image>().color = Color.white;
-            }
+            Invoke("ColorReset_Word2", 1);
+            //ColorReset_Word2();
+
             // Reset bools that said letter correct
             for (int i = 0; i < A_Word2_Bool.Length; i++)
             {
@@ -155,10 +159,9 @@ public class PuzzleManager : MonoBehaviour
             FailSound.Play();
 
             // Reset Colors to White
-            for (int i = 1; i < A_Word3_Bye.Length; i++)
-            {
-                A_Word3_Bye[i].GetComponent<Image>().color = Color.white;
-            }
+            Invoke("ColorReset_Word3", 1);
+            //ColorReset_Word3();
+
             // Reset bools that said letter correct
             for (int i = 0; i < A_Word3_Bool.Length; i++)
             {
@@ -168,8 +171,29 @@ public class PuzzleManager : MonoBehaviour
 
     }
 
-    
+    public void ColorReset_Word1()
+    {
+        for (int i = 0; i < A_Word1_Game.Length; i++)
+        {
+            A_Word1_Game[i].GetComponent<Image>().color = Color.white;
+        }
+    }
 
+    public void ColorReset_Word2()
+    {
+        for (int i = 0; i < A_Word2_Thief.Length; i++)
+        {
+            A_Word2_Thief[i].GetComponent<Image>().color = Color.white;
+        }
+    }
+
+    public void ColorReset_Word3()
+    {
+        for (int i = 0; i < A_Word3_Bye.Length; i++)
+        {
+            A_Word3_Bye[i].GetComponent<Image>().color = Color.white;
+        }
+    }
 
 
 // FINDING CALLS
@@ -188,9 +212,11 @@ public class PuzzleManager : MonoBehaviour
     public void FindObjects()
     {
         _EndScreen = GameObject.Find("EndScreen");
+        TimeFinal = GameObject.Find("TimeFinal").GetComponent<TMP_Text>();
         _EndScreen.SetActive(false);
 
         Txt_WordCounter = GameObject.Find("WordCounter").GetComponent<TMP_Text>();
+        
 
     }
 

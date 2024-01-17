@@ -31,8 +31,13 @@ public class Letter : MonoBehaviour
         {
             // Letters that do not belong to word are turned red
             GetComponent<Image>().color = Color.red;
-            // Reset should letter outside of word be clicked
+            // Reset color back to white
+            StartCoroutine(ColorResetRandom());
 
+            S_PuzzleManager.FailSound.Play();
+            // Reset when random letter clicked
+
+            S_PuzzleManager.ResetIfWrongLetterClicked();
 
 
         }
@@ -65,7 +70,6 @@ public class Letter : MonoBehaviour
 
         if (CompareTag("Word1_Game"))
         {
-
 
             if (ClickedText.text == "G")
             {
@@ -263,6 +267,16 @@ public class Letter : MonoBehaviour
             
 
         }
+
+    }
+
+
+    // Random Letter Color Reset
+    IEnumerator ColorResetRandom()
+    {
+        yield return new WaitForSeconds(1);
+
+        GetComponent<Image>().color = Color.white;
 
     }
 

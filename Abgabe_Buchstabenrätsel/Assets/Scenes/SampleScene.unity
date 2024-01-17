@@ -1996,7 +1996,7 @@ GameObject:
   - component: {fileID: 688428230}
   - component: {fileID: 688428229}
   m_Layer: 5
-  m_Name: TimerTotal
+  m_Name: TimeFinal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2741,7 +2741,7 @@ GameObject:
   - component: {fileID: 832630881}
   - component: {fileID: 832630880}
   m_Layer: 5
-  m_Name: Timer
+  m_Name: TimeCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6004,6 +6004,7 @@ GameObject:
   - component: {fileID: 1624140171}
   - component: {fileID: 1624140172}
   - component: {fileID: 1624140170}
+  - component: {fileID: 1624140173}
   m_Layer: 0
   m_Name: PuzzleManager
   m_TagString: Untagged
@@ -6040,6 +6041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   S_Letter: {fileID: 5331427774165586512, guid: b60051f79107be7479b7b915523746d1,
     type: 3}
+  S_TimeCounter: {fileID: 1624140173}
   WordsFoundCounter: 0
   FailSound: {fileID: 1624140172}
   CorrectSound: {fileID: 1624140171}
@@ -6115,6 +6117,7 @@ MonoBehaviour:
   A_Word2_Bool: 00000000
   A_Word3_Bool: 0000
   A_WordCorrect_Bool: 000000
+  TimeFinal: {fileID: 0}
 --- !u!82 &1624140170
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6403,6 +6406,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1624140173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624140167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed46f309e033e545ab84005c0399800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  S_PuzzleManager: {fileID: 1624140169}
+  Txt_TimeCounter: {fileID: 0}
 --- !u!1001 &1625299614
 PrefabInstance:
   m_ObjectHideFlags: 0
