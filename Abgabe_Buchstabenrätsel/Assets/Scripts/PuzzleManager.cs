@@ -7,56 +7,55 @@ using UnityEngine.SceneManagement;
 
 public class PuzzleManager : MonoBehaviour
 {
-// VARIABELS
+    // VARIABELS
 
     // Scripts
     public Letter S_Letter;
-    public TimeCounter S_TimeCounter;
-    [Space]
+    [HideInInspector] public TimeCounter S_TimeCounter;
 
-    // int
-    [HideInInspector] public int WordsFoundCounter;
-    private int WordsTotal = 3;
+    // WordCounter int
+    [HideInInspector] public int _WordsFoundCounter;
+    private int _wordsTotal = 3;
 
     // AudioSources
+    public AudioSource Audio_FailSound;
+    public AudioSource Audio_CorrectSound;
+    public AudioSource Audio_FinishGameSound;
     [Space]
-    public AudioSource FailSound;
-    public AudioSource CorrectSound;
-    public AudioSource FinishGameSound;
 
-    [Space]
     // Solution Words
     public GameObject[] A_Word1_Game = new GameObject[4];
     public GameObject[] A_Word2_Thief = new GameObject[5];
     public GameObject[] A_Word3_Bye = new GameObject[3];
 
     // Random Letters
-    [HideInInspector] public TMP_Text[] RandomizableLetters;
-    [HideInInspector] public string[] Alphabet = new string[26] { "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z" };
+    [HideInInspector] public TMP_Text[] A_RandomizableLetters;
+    [HideInInspector] public string[] A_Alphabet = new string[26] { "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z" };
 
     // CheckWord Bools
-    public bool[] A_Word1_Bool = new bool[3];
+    [HideInInspector] public bool[] A_Word1_Bool = new bool[3];
     [HideInInspector] public bool[] A_Word2_Bool = new bool[4];
     [HideInInspector] public bool[] A_Word3_Bool = new bool[2];
 
     [HideInInspector] public bool[] A_WordCorrect_Bool = new bool[3];
 
-    // Objects
+    // UI Objects
     private GameObject _EndScreen;
     private TMP_Text Txt_WordCounter;
-    [HideInInspector] public TMP_Text TimeFinal;
+    [HideInInspector] public TMP_Text Txt_TimeFinal;
 
     // START
     void Start()
     {
-        RandomizeLetters();
+        // Finding Calls
         FindObjects();
-    }
 
-// UPDATE
-    void Update()
-    {
+        S_TimeCounter = GameObject.Find("PuzzleManager").GetComponent<TimeCounter>();
 
+
+        // Functions at Start
+        RandomizeLetters();
+        
     }
 
 // FUNCTIONS
@@ -64,9 +63,9 @@ public class PuzzleManager : MonoBehaviour
     // Randomizes all Letters that do not belong to the searched words
     public void RandomizeLetters()
     {
-        for (int i = 0; i < RandomizableLetters.Length; i++)
+        for (int i = 0; i < A_RandomizableLetters.Length; i++)
         {
-            RandomizableLetters[i].text = Alphabet[Random.Range(0, Alphabet.Length)].ToString();
+            A_RandomizableLetters[i].text = A_Alphabet[Random.Range(0, A_Alphabet.Length)].ToString();
 
         }
 
@@ -75,32 +74,30 @@ public class PuzzleManager : MonoBehaviour
     public void WordCorrect()
     {
         // Play Correct Sound
-        CorrectSound.Play();
+        Audio_CorrectSound.Play();
 
-        // WordsFoundCounter + 1 / Total Words 
-        WordsFoundCounter++;
+        // _WordsFoundCounter + 1 / Total Words 
+        _WordsFoundCounter++;
         // Write Counter in UI
-        Txt_WordCounter.text = WordsFoundCounter.ToString();
+        Txt_WordCounter.text = _WordsFoundCounter.ToString();
     }
 
     public void GameFinish()
     {
-        // If WordsFoundCounter = Words Total
-        if (WordsFoundCounter == WordsTotal)
+        // If _WordsFoundCounter = Words Total
+        if (_WordsFoundCounter == _wordsTotal)
         {
             // Show EndScreen
             _EndScreen.SetActive(true);
 
             // Play EndGameSound
-            FinishGameSound.Play();
+            Audio_FinishGameSound.Play();
 
             S_TimeCounter.TimeCounterStop();
 
 
 
         }      
-
-        // Display Time Needed
 
     }
 
@@ -122,7 +119,7 @@ public class PuzzleManager : MonoBehaviour
             //Debug.Log("Reset");
 
             // Play Fail Sound
-            FailSound.Play();
+            Audio_FailSound.Play();
 
             // Reset Colors to White
             Invoke("ColorReset_Word1", 1);
@@ -139,7 +136,7 @@ public class PuzzleManager : MonoBehaviour
         if (!A_WordCorrect_Bool[1])
         {
             // Play Fail Sound
-            FailSound.Play();
+            Audio_FailSound.Play();
 
             // Reset Colors to White
             Invoke("ColorReset_Word2", 1);
@@ -156,7 +153,7 @@ public class PuzzleManager : MonoBehaviour
         if (!A_WordCorrect_Bool[2])
         {
             // Play Fail Sound
-            FailSound.Play();
+            Audio_FailSound.Play();
 
             // Reset Colors to White
             Invoke("ColorReset_Word3", 1);
@@ -197,24 +194,16 @@ public class PuzzleManager : MonoBehaviour
 
 
 // FINDING CALLS
-
-    // Nicht benutzt, da es die Objekte in falscher Reihenfolge dem Array zuweist und damit in anderen Funktionen Probleme macht
-    public void FindWordButtons()
-    {
-
-        A_Word1_Game = GameObject.FindGameObjectsWithTag("Word1_Game");
-        A_Word2_Thief = GameObject.FindGameObjectsWithTag("Word2_Thief");
-        A_Word3_Bye = GameObject.FindGameObjectsWithTag("Word3_Bye");
-
-    }
     
     // EndScreen
     public void FindObjects()
     {
+        // EndScreen + Final Counter Find&Disable
         _EndScreen = GameObject.Find("EndScreen");
-        TimeFinal = GameObject.Find("TimeFinal").GetComponent<TMP_Text>();
+        Txt_TimeFinal = GameObject.Find("Txt_TimeFinal").GetComponent<TMP_Text>();
         _EndScreen.SetActive(false);
 
+        // Find Word Counter 
         Txt_WordCounter = GameObject.Find("WordCounter").GetComponent<TMP_Text>();
         
 

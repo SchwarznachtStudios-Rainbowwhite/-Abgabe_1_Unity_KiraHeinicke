@@ -13,52 +13,56 @@ public class TimeCounter : MonoBehaviour
     public PuzzleManager S_PuzzleManager;
 
     // Other
-    public Stopwatch Stopwatch = new Stopwatch();
+    public Stopwatch _Stopwatch = new Stopwatch();
 
     
     public TMP_Text Txt_TimeCounter;
 
-    public TimeSpan TimePassed;
+    public TimeSpan _TimePassed;
     
 
 // START
     void Start()
     {
+        // Finding Calls
         FindingCalls();
+        S_PuzzleManager = GameObject.Find("PuzzleManager").GetComponent<PuzzleManager>();
 
+        // Starts _Stopwatch
         TimeCounterStart();
     }
 
 // UPDATE
     void Update()
     {
+        // Display Time in UI
         TimeCounterRunning();
-
-
 
     }
 
 // FUNCTIONS
 
+    // Starts _Stopwatch
     public void TimeCounterStart()
     {
-        Stopwatch.Start();
+        _Stopwatch.Start();
         
     }
 
+    // Display Time in UI
     public void TimeCounterRunning()
     {
-        TimePassed = Stopwatch.Elapsed;
-        Txt_TimeCounter.text = TimePassed.ToString();
+        _TimePassed = _Stopwatch.Elapsed;
+        Txt_TimeCounter.text = _TimePassed.ToString();
 
     }
 
+    // Stops _Stopwatch and Displays Time in Endscreen UI when called
     public void TimeCounterStop()
     {
-        Stopwatch.Stop();
+        _Stopwatch.Stop();
 
-        S_PuzzleManager.TimeFinal.text = TimePassed.ToString();
-
+        S_PuzzleManager.Txt_TimeFinal.text = _TimePassed.ToString();
 
     }
 
