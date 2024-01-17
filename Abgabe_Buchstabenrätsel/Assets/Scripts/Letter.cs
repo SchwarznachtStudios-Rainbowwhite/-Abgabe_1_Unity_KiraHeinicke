@@ -51,6 +51,8 @@ public class Letter : MonoBehaviour
 
     }
 
+
+    // Checks for the words
     public void CheckWord_One()
     {
 
@@ -88,8 +90,8 @@ public class Letter : MonoBehaviour
                 GetComponent<Image>().color = Color.green;
 
                 S_PuzzleManager.A_WordCorrect_Bool[0] = true;
-                S_PuzzleManager.WordsFoundCounter++;
                 S_PuzzleManager.WordCorrect();
+                S_PuzzleManager.GameFinish();
 
                 Debug.Log(S_PuzzleManager.WordsFoundCounter);
             }
@@ -136,8 +138,8 @@ public class Letter : MonoBehaviour
                 GetComponent<Image>().color = Color.green;
 
                 S_PuzzleManager.A_WordCorrect_Bool[1] = true;
-                S_PuzzleManager.WordsFoundCounter++;
                 S_PuzzleManager.WordCorrect();
+                S_PuzzleManager.GameFinish();
 
                 Debug.Log(S_PuzzleManager.WordsFoundCounter);
             }
@@ -172,8 +174,8 @@ public class Letter : MonoBehaviour
                 GetComponent<Image>().color = Color.green;
 
                 S_PuzzleManager.A_WordCorrect_Bool[2] = true;
-                S_PuzzleManager.WordsFoundCounter++;
                 S_PuzzleManager.WordCorrect();
+                S_PuzzleManager.GameFinish();
 
                 Debug.Log(S_PuzzleManager.WordsFoundCounter);
             }
@@ -184,6 +186,8 @@ public class Letter : MonoBehaviour
 
     }
 
+    // Color Letter red Function
+    // function here so it can be called in PuzzleManager
     public void MakeLetterRed()
     {
         GetComponent<Image>().color = Color.red;

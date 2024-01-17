@@ -11,11 +11,19 @@ public class PuzzleManager : MonoBehaviour
 
     // Scripts
     public Letter S_Letter;
+    [Space]
 
     // int
     [HideInInspector] public int WordsFoundCounter;
     private int WordsTotal = 3;
 
+    // AudioSources
+    [Space]
+    public AudioSource FailSound;
+    public AudioSource CorrectSound;
+    public AudioSource FinishGameSound;
+
+    [Space]
     // Solution Words
     public GameObject[] A_Word1_Game = new GameObject[4];
     public GameObject[] A_Word2_Thief = new GameObject[5];
@@ -45,7 +53,7 @@ public class PuzzleManager : MonoBehaviour
 // UPDATE
     void Update()
     {
-        GameFinish();
+
     }
 
 // FUNCTIONS
@@ -60,6 +68,39 @@ public class PuzzleManager : MonoBehaviour
         }
 
     }
+
+    public void WordCorrect()
+    {
+        // Play Correct Sound
+        CorrectSound.Play();
+
+        // WordsFoundCounter + 1 / Total Words 
+        WordsFoundCounter++;
+    }
+
+    public void GameFinish()
+    {
+        // If WordsFoundCounter = Words Total
+        if (WordsFoundCounter == WordsTotal)
+        {
+            // Show EndScreen
+            _EndScreen.SetActive(true);
+
+            // Play EndGameSound
+            FinishGameSound.Play();
+        }      
+
+        // Display Time Needed
+
+    }
+
+    public void Restart()
+    {
+        // Reload Scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    }
+
 
     // Complete Reset of Word
     // reset works, but not implemented yet
@@ -106,34 +147,6 @@ public class PuzzleManager : MonoBehaviour
 
         // Play Fail Sound
     }
-
-    public void WordCorrect()
-    {
-        // Play Correct Sound
-
-        // WordsFoundCounter + 1 / Total Words 
-    }
-
-    public void GameFinish()
-    {
-        // If WordsFoundCounter = Words Total
-        if (WordsFoundCounter == WordsTotal)
-        {
-            // Show EndScreen
-            _EndScreen.SetActive(true);
-        }      
-
-        // Display Time Needed
-
-    }
-
-    public void Restart()
-    {
-        // Reload Scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-    }
-
     public void ResetWordsIfWrong()
     {
         // WORD 1
@@ -213,6 +226,9 @@ public class PuzzleManager : MonoBehaviour
 
     }
 
+
+// FINDING CALLS
+
     // Nicht benutzt, da es die Objekte in falscher Reihenfolge dem Array zuweist und damit in anderen Funktionen Probleme macht
     public void FindWordButtons()
     {
@@ -222,7 +238,8 @@ public class PuzzleManager : MonoBehaviour
         A_Word3_Bye = GameObject.FindGameObjectsWithTag("Word3_Bye");
 
     }
-
+    
+    // EndScreen
     public void FindObjects()
     {
         _EndScreen = GameObject.Find("EndScreen");
