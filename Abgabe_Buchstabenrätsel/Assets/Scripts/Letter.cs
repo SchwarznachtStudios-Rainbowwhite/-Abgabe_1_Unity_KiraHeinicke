@@ -8,8 +8,10 @@ public class Letter : MonoBehaviour
 {
     // VARIABLES
 
+    // Scripts
     public PuzzleManager S_PuzzleManager;
 
+    // Text on Clicked Button
     public TMP_Text ClickedText;
 
     
@@ -27,24 +29,26 @@ public class Letter : MonoBehaviour
     {
         if (CompareTag("RandomLetter"))
         {
-            Debug.Log("Letter wrong");
-
+            // Letters that do not belong to word are turned red
             GetComponent<Image>().color = Color.red;
+            // Reset should letter outside of word be clicked
+
+
 
         }
         else if (CompareTag("Word1_Game") || CompareTag("Word2_Thief") || CompareTag("Word3_Bye"))
         {
-
+            // Executes Word Checks
             CheckWord_One();
             CheckWord_Two();
             CheckWord_Three();
 
-            //S_PuzzleManager.ResetWordsIfWrong();
         }
 
 
     }
 
+    // Gets Text Component on Clicked Button
     public void GetTextComponent()
     {
         ClickedText = GetComponentInChildren<TMP_Text>();
@@ -52,48 +56,74 @@ public class Letter : MonoBehaviour
     }
 
 
-    // Checks for the words
+    // WordChecks
+    // Checks if Button belongs to Word
+    //   Checks which Letter in Clicked Button/Text
+    //     Checks if Letter before the clicked one was clicked, if not resets all buttons/letters of word
     public void CheckWord_One()
     {
 
         if (CompareTag("Word1_Game"))
         {
-            
+
 
             if (ClickedText.text == "G")
             {
                 GetComponent<Image>().color = Color.green;
                 S_PuzzleManager.A_Word1_Bool[0] = true;
-
-
-            }
-            else GetComponent<Image>().color = Color.red; /*S_PuzzleManager.ResetWordsIfWrong();*/
-
-            if (ClickedText.text == "A" && S_PuzzleManager.A_Word1_Bool[0])
-            {
-                GetComponent<Image>().color = Color.green;
-                S_PuzzleManager.A_Word1_Bool[1] = true;
- 
+                Debug.Log("green");
 
             }
 
-            if (ClickedText.text == "M" && S_PuzzleManager.A_Word1_Bool[1] == true)
+            if (ClickedText.text == "A")
             {
-                GetComponent<Image>().color = Color.green;
-                S_PuzzleManager.A_Word1_Bool[2] = true;
-
-
+                if (S_PuzzleManager.A_Word1_Bool[0])
+                {
+                    GetComponent<Image>().color = Color.green;
+                    S_PuzzleManager.A_Word1_Bool[1] = true;
+                }
+                else
+                {
+                    GetComponent<Image>().color = Color.red;
+                    Debug.Log("red");
+                    S_PuzzleManager.ResetIfWrongLetterClicked();
+                }
             }
 
-            if (ClickedText.text == "E" && S_PuzzleManager.A_Word1_Bool[2] == true)
+            if (ClickedText.text == "M")
             {
-                GetComponent<Image>().color = Color.green;
+                if (S_PuzzleManager.A_Word1_Bool[1])
+                {
+                    GetComponent<Image>().color = Color.green;
+                    S_PuzzleManager.A_Word1_Bool[2] = true;
+                }
+                else
+                {
+                    GetComponent<Image>().color = Color.red;
+                    Debug.Log("red");
+                    S_PuzzleManager.ResetIfWrongLetterClicked();
+                }
+            }
 
-                S_PuzzleManager.A_WordCorrect_Bool[0] = true;
-                S_PuzzleManager.WordCorrect();
-                S_PuzzleManager.GameFinish();
+            if (ClickedText.text == "E")
+            {
+                if (S_PuzzleManager.A_Word1_Bool[2])
+                {
+                    GetComponent<Image>().color = Color.green;
 
-                Debug.Log(S_PuzzleManager.WordsFoundCounter);
+                    S_PuzzleManager.A_WordCorrect_Bool[0] = true;
+                    S_PuzzleManager.WordCorrect();
+                    S_PuzzleManager.GameFinish();
+
+                    Debug.Log(S_PuzzleManager.WordsFoundCounter);
+                }
+                else
+                {
+                    GetComponent<Image>().color = Color.red;
+                    Debug.Log("red");
+                    S_PuzzleManager.ResetIfWrongLetterClicked();
+                }
+
             }
 
         }
@@ -110,38 +140,71 @@ public class Letter : MonoBehaviour
                 GetComponent<Image>().color = Color.green;
                 S_PuzzleManager.A_Word2_Bool[0] = true;
 
-            }else GetComponent<Image>().color = Color.red;
-
-            if (ClickedText.text == "H" && S_PuzzleManager.A_Word2_Bool[0] == true)
-            {
-                GetComponent<Image>().color = Color.green;
-                S_PuzzleManager.A_Word2_Bool[1] = true;
-
             }
 
-            if (ClickedText.text == "I" && S_PuzzleManager.A_Word2_Bool[1] == true)
+            if (ClickedText.text == "H")
             {
-                GetComponent<Image>().color = Color.green;
-                S_PuzzleManager.A_Word2_Bool[2] = true;
-
+                if (S_PuzzleManager.A_Word2_Bool[0])
+                {
+                    GetComponent<Image>().color = Color.green;
+                    S_PuzzleManager.A_Word2_Bool[1] = true;
+                }
+                else
+                {
+                    GetComponent<Image>().color = Color.red;
+                    Debug.Log("red");
+                    S_PuzzleManager.ResetIfWrongLetterClicked();
+                }
             }
 
-            if (ClickedText.text == "E" && S_PuzzleManager.A_Word2_Bool[2] == true)
+            if (ClickedText.text == "I")
             {
-                GetComponent<Image>().color = Color.green;
-                S_PuzzleManager.A_Word2_Bool[3] = true;
-
+                if (S_PuzzleManager.A_Word2_Bool[1])
+                {
+                    GetComponent<Image>().color = Color.green;
+                    S_PuzzleManager.A_Word2_Bool[2] = true;
+                }
+                else
+                {
+                    GetComponent<Image>().color = Color.red;
+                    Debug.Log("red");
+                    S_PuzzleManager.ResetIfWrongLetterClicked();
+                }
             }
 
-            if (ClickedText.text == "F" && S_PuzzleManager.A_Word2_Bool[3] == true)
+            if (ClickedText.text == "E")
             {
-                GetComponent<Image>().color = Color.green;
+                if (S_PuzzleManager.A_Word2_Bool[2])
+                {
+                    GetComponent<Image>().color = Color.green;
+                    S_PuzzleManager.A_Word2_Bool[3] = true;
+                }
+                else
+                {
+                    GetComponent<Image>().color = Color.red;
+                    Debug.Log("red");
+                    S_PuzzleManager.ResetIfWrongLetterClicked();
+                }
+            }
 
-                S_PuzzleManager.A_WordCorrect_Bool[1] = true;
-                S_PuzzleManager.WordCorrect();
-                S_PuzzleManager.GameFinish();
+            if (ClickedText.text == "F")
+            {
+                if (S_PuzzleManager.A_Word2_Bool[3])
+                {
+                    GetComponent<Image>().color = Color.green;
 
-                Debug.Log(S_PuzzleManager.WordsFoundCounter);
+                    S_PuzzleManager.A_WordCorrect_Bool[1] = true;
+                    S_PuzzleManager.WordCorrect();
+                    S_PuzzleManager.GameFinish();
+
+                    Debug.Log(S_PuzzleManager.WordsFoundCounter);
+                }
+                else
+                {
+                    GetComponent<Image>().color = Color.red;
+                    Debug.Log("red");
+                    S_PuzzleManager.ResetIfWrongLetterClicked();
+                }
             }
 
         }
@@ -160,24 +223,41 @@ public class Letter : MonoBehaviour
                 S_PuzzleManager.A_Word3_Bool[0] = true;
 
             }
-            else GetComponent<Image>().color = Color.red;
 
-            if (ClickedText.text == "Y" && S_PuzzleManager.A_Word3_Bool[0] == true)
+            if (ClickedText.text == "Y")
             {
-                GetComponent<Image>().color = Color.green;
-                S_PuzzleManager.A_Word3_Bool[1] = true;
-
+                if (S_PuzzleManager.A_Word3_Bool[0])
+                {
+                    GetComponent<Image>().color = Color.green;
+                    S_PuzzleManager.A_Word3_Bool[1] = true;
+                }
+                else
+                {
+                    GetComponent<Image>().color = Color.red;
+                    Debug.Log("red");
+                    S_PuzzleManager.ResetIfWrongLetterClicked();
+                }
             }
 
-            if (ClickedText.text == "E" && S_PuzzleManager.A_Word3_Bool[1] == true)
+            if (ClickedText.text == "E")
             {
-                GetComponent<Image>().color = Color.green;
+                if (S_PuzzleManager.A_Word3_Bool[1])
+                {
+                    GetComponent<Image>().color = Color.green;
 
-                S_PuzzleManager.A_WordCorrect_Bool[2] = true;
-                S_PuzzleManager.WordCorrect();
-                S_PuzzleManager.GameFinish();
+                    S_PuzzleManager.A_WordCorrect_Bool[2] = true;
+                    S_PuzzleManager.WordCorrect();
+                    S_PuzzleManager.GameFinish();
 
-                Debug.Log(S_PuzzleManager.WordsFoundCounter);
+                    Debug.Log(S_PuzzleManager.WordsFoundCounter);
+                }
+                else
+                {
+                    GetComponent<Image>().color = Color.red;
+                    Debug.Log("red");
+                    S_PuzzleManager.ResetIfWrongLetterClicked();
+                }
+
             }
 
             
@@ -185,6 +265,7 @@ public class Letter : MonoBehaviour
         }
 
     }
+
 
     // Color Letter red Function
     // function here so it can be called in PuzzleManager
